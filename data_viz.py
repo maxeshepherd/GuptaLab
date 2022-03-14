@@ -48,9 +48,9 @@ def get_frames_and_bboxes(idx):
   post_img = videodata[post_frame]
   pre_img = videodata[pre_frame]
   pnr_img = videodata[pnr_frame]
-  pre_bbox = scod_sample['pre_frame']['bbox']['bbox']
-  pnr_bbox = scod_sample['pnr_frame']['bbox']['bbox']
-  post_bbox = scod_sample['post_frame']['bbox']['bbox']
+  pre_bbox = scod_sample['pre_frame']['bbox'][0]['bbox']
+  pnr_bbox = scod_sample['pnr_frame']['bbox'][0]['bbox']
+  post_bbox = scod_sample['post_frame']['bbox'][0]['bbox']
   return (pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox)
 #scod_idx = np.random.randint(0, scod_num_clips - 1)
 #hands_idx = np.random.randint(0, hands_num_clips - 1)
@@ -62,8 +62,8 @@ fig, ax = plt.subplots(3, 3)
 fig.set_figheight(5)
 fig.set_figwidth(8)
 ax[0,0].imshow(pre_img)
-rect = patches.Rectangle((pre_bbox[0], pre_bbox[1]), pre_bbox[2], pre_bbox[3])
-ax[0,0].add(rect)
+rect = patches.Rectangle((pre_bbox['x'], pre_bbox['y']), pre_bbox['width'], pre_bbox['height'])
+ax[0,0].add_patch(rect)
 ax[0,0].axes.xaxis.set_visible(False)
 ax[0,0].axes.yaxis.set_visible(False)
 ax[0,0].set_title("Pre Frame")
