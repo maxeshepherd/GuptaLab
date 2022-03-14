@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
 import torch
 import json
 import os
@@ -36,16 +37,33 @@ def get_frames(idx):
   pnr_img = videodata[pnr_frame]
   return pre_img, pnr_img, post_img
 
+def get_frames_and_bboxes(idx):
+  scod_sample = scod_data['clips'][idx]
+  clip_uid = scod_sample['clip_uid']
+  pre_frame = scod_sample['pre_frame']['clip_frame_number']
+  pnr_frame = scod_sample['pnr_frame']['clip_frame_number']
+  post_frame = scod_sample['post_frame']['clip_frame_number']
+  video_path = os.path.join(PATH_TO_VIDEOS, clip_uid+".mp4")
+  videodata = skvideo.io.vread(video_path)
+  post_img = videodata[post_frame]
+  pre_img = videodata[pre_frame]
+  pnr_img = videodata[pnr_frame]
+  pre_bbox = scod_sample['pre_frame']['bbox']['bbox']
+  pnr_bbox = scod_sample['pnr_frame']['bbox']['bbox']
+  post_bbox = scod_sample['post_frame']['bbox']['bbox']
+  return (pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox)
 #scod_idx = np.random.randint(0, scod_num_clips - 1)
 #hands_idx = np.random.randint(0, hands_num_clips - 1)
 
 scod_idx = 0
 hands_idx = 0
-pre_img, pnr_img, post_img = get_frames(0)
+(pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(0)
 fig, ax = plt.subplots(3, 3)
 fig.set_figheight(5)
 fig.set_figwidth(8)
 ax[0,0].imshow(pre_img)
+rect = patches.Rectangle((pre_bbox[0], pre_bbox[1]), pre_bbox[2], pre_bbox[3])
+ax[0,0].add(rect)
 ax[0,0].axes.xaxis.set_visible(False)
 ax[0,0].axes.yaxis.set_visible(False)
 ax[0,0].set_title("Pre Frame")
@@ -57,8 +75,8 @@ ax[0,2].imshow(post_img)
 ax[0,2].axes.xaxis.set_visible(False)
 ax[0,2].axes.yaxis.set_visible(False)
 ax[0,2].set_title("Post Frame")
-
-pre_img, pnr_img, post_img = get_frames(940)
+"""
+(pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(940)
 ax[1,0].imshow(pre_img)
 ax[1,0].axes.xaxis.set_visible(False)
 ax[1,0].axes.yaxis.set_visible(False)
@@ -72,7 +90,7 @@ ax[1,2].axes.xaxis.set_visible(False)
 ax[1,2].axes.yaxis.set_visible(False)
 ax[1,2].set_title("Post Frame")
 
-pre_img, pnr_img, post_img = get_frames(5006)
+(pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(5006)
 ax[2,0].imshow(pre_img)
 ax[2,0].axes.xaxis.set_visible(False)
 ax[2,0].axes.yaxis.set_visible(False)
@@ -85,4 +103,5 @@ ax[2,2].imshow(post_img)
 ax[2,2].axes.xaxis.set_visible(False)
 ax[2,2].axes.yaxis.set_visible(False)
 ax[2,2].set_title("Post Frame")
+"""
 plt.savefig("pnr_loc")
