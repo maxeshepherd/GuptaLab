@@ -24,12 +24,12 @@ print(f"State Change Object detection has {len(scod_data['clips'])} clips")
 print(f"PNR temporal localization has {len(hands_data['clips'])} clips")
 
 def get_frames(idx):
-  hands_sample = hands_data['clips'][hands_idx]
-  clip_uid = hands_sample['clip_uid']
-  hands_frames = hands_sample['frames'][0]
-  post_frame = hands_frames['post_frame']['clip_frame']
-  pre_frame = hands_frames['pre_frame']['clip_frame']
-  pnr_frame = hands_frames['pnr_frame']['clip_frame']
+  scod_sample = scod_data['clips'][idx]
+  clip_uid = scod_sample['clip_uid']
+  scod_frames = scod_sample['frames'][0]
+  post_frame = scod_frames['post_frame']['clip_frame']
+  pre_frame = scod_frames['pre_frame']['clip_frame']
+  pnr_frame = scod_frames['pnr_frame']['clip_frame']
   VIDEO_PATH = os.path.join(PATH_TO_VIDEOS, clip_uid+".mp4")
   videodata = skvideo.io.vread(VIDEO_PATH)
   post_img = videodata[post_frame]
@@ -60,7 +60,7 @@ ax[0,2].axes.xaxis.set_visible(False)
 ax[0,2].axes.yaxis.set_visible(False)
 ax[0,2].set_title("Post Frame")
 
-pre_img, pnr_img, post_img = get_frames(1)
+#pre_img, pnr_img, post_img = get_frames(1)
 ax[1,0].imshow(pre_img)
 ax[1,0].axes.xaxis.set_visible(False)
 ax[1,0].axes.yaxis.set_visible(False)
@@ -74,7 +74,7 @@ ax[1,2].axes.xaxis.set_visible(False)
 ax[1,2].axes.yaxis.set_visible(False)
 ax[1,2].set_title("Post Frame")
 
-pre_img, pnr_img, post_img = get_frames(2)
+#pre_img, pnr_img, post_img = get_frames(2)
 ax[2,0].imshow(pre_img)
 ax[2,0].axes.xaxis.set_visible(False)
 ax[2,0].axes.yaxis.set_visible(False)
