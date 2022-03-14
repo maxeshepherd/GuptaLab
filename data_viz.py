@@ -48,39 +48,30 @@ pre_45 = hands_frames['pre_45']['clip_frame']
 pre_30 = hands_frames['pre_30']['clip_frame']
 pre_15 = hands_frames['pre_15']['clip_frame']
 post_frame = hands_frames['post_frame']['clip_frame']
+pre_frame = hands_frames['pre_frame']['clip_frame']
 pnr_frame = hands_frames['pnr_frame']['clip_frame']
 
 print(f"Clip is from video {video_uid} from clip uid {clip_uid} and some important values are: {hands_frames}")
 VIDEO_PATH = os.path.join(PATH_TO_VIDEOS, clip_uid+".mp4")
 videodata = skvideo.io.vread(VIDEO_PATH)
 
-pre_45_img = videodata[pre_45]
-pre_30_img = videodata[pre_30]
-pre_15_img = videodata[pre_15]
 post_img = videodata[post_frame]
+pre_img = videodata[pre_frame]
 pnr_img = videodata[pnr_frame]
 
-fig, ax = plt.subplots(2, 3)
+fig, ax = plt.subplots(1, 3)
 fig.set_figheight(5)
 fig.set_figwidth(8)
-ax[0,0].imshow(pre_45_img)
+ax[0,0].imshow(pre_img)
 ax[0,0].axes.xaxis.set_visible(False)
 ax[0,0].axes.yaxis.set_visible(False)
-ax[0,0].set_title("pre 45 frame")
-ax[0,1].imshow(pre_30_img)
+ax[0,0].set_title("Pre Frame")
+ax[0,1].imshow(pnr_img)
 ax[0,1].axes.xaxis.set_visible(False)
 ax[0,1].axes.yaxis.set_visible(False)
-ax[0,1].set_title("pre 30 frame")
-ax[0,2].imshow(pre_15_img)
+ax[0,1].set_title("PNR Frame")
+ax[0,2].imshow(post_img)
 ax[0,2].axes.xaxis.set_visible(False)
 ax[0,2].axes.yaxis.set_visible(False)
-ax[0,2].set_title("pre 15 frame")
-ax[1,0].imshow(post_img)
-ax[1,0].axes.xaxis.set_visible(False)
-ax[1,0].axes.yaxis.set_visible(False)
-ax[1,0].set_title("post frame")
-ax[1,1].imshow(pnr_img)
-ax[1,1].axes.xaxis.set_visible(False)
-ax[1,1].axes.yaxis.set_visible(False)
-ax[1,1].set_title("PNR frame")
+ax[0,2].set_title("Post Frame")
 plt.savefig("pnr_loc")
