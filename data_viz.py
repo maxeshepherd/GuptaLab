@@ -65,8 +65,6 @@ def plot_img(ax, img, bboxes=None, sample_idx=0, state='', title=''):
   ax.axes.yaxis.set_visible(False)
   ax.set_title(title)
   return
-#scod_idx = np.random.randint(0, scod_num_clips - 1)
-#hands_idx = np.random.randint(0, hands_num_clips - 1)
 
 sample_idx = 0
 (pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(sample_idx)
@@ -79,11 +77,15 @@ plot_img(ax[0,1], pnr_img, bboxes=pnr_bbox, sample_idx=sample_idx, state='pnr', 
 plot_img(ax[0,2], post_img, bboxes=post_bbox, sample_idx=sample_idx, state='post', title='Post Frame' + str(sample_idx))
 
 sample_idx = 7584
+(pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(sample_idx)
+fig, ax = plt.subplots(3, 3)
 plot_img(ax[1,0], pre_img, bboxes=pre_bbox, sample_idx=sample_idx, state='pre', title='Pre Frame' + str(sample_idx))
 plot_img(ax[1,1], pnr_img, bboxes=pnr_bbox, sample_idx=sample_idx, state='pnr', title='PNR Frame' + str(sample_idx))
 plot_img(ax[1,2], post_img, bboxes=post_bbox, sample_idx=sample_idx, state='post', title='Post Frame' + str(sample_idx))
 
 sample_idx = 8492
+(pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(sample_idx)
+fig, ax = plt.subplots(3, 3)
 plot_img(ax[2,0], pre_img, bboxes=pre_bbox, sample_idx=sample_idx, state='pre', title='Pre Frame' + str(sample_idx))
 plot_img(ax[2,1], pnr_img, bboxes=pnr_bbox, sample_idx=sample_idx, state='pnr', title='PNR Frame' + str(sample_idx))
 plot_img(ax[2,2], post_img, bboxes=post_bbox, sample_idx=sample_idx, state='post', title='Post Frame' + str(sample_idx))
