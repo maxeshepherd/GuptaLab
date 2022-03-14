@@ -41,7 +41,6 @@ def get_frames(idx):
 
 scod_idx = 0
 hands_idx = 0
-
 pre_img, pnr_img, post_img = get_frames(0)
 fig, ax = plt.subplots(3, 3)
 fig.set_figheight(5)
@@ -59,7 +58,7 @@ ax[0,2].axes.xaxis.set_visible(False)
 ax[0,2].axes.yaxis.set_visible(False)
 ax[0,2].set_title("Post Frame")
 
-#pre_img, pnr_img, post_img = get_frames(1)
+pre_img, pnr_img, post_img = get_frames(940)
 ax[1,0].imshow(pre_img)
 ax[1,0].axes.xaxis.set_visible(False)
 ax[1,0].axes.yaxis.set_visible(False)
@@ -73,7 +72,7 @@ ax[1,2].axes.xaxis.set_visible(False)
 ax[1,2].axes.yaxis.set_visible(False)
 ax[1,2].set_title("Post Frame")
 
-#pre_img, pnr_img, post_img = get_frames(2)
+pre_img, pnr_img, post_img = get_frames(5006)
 ax[2,0].imshow(pre_img)
 ax[2,0].axes.xaxis.set_visible(False)
 ax[2,0].axes.yaxis.set_visible(False)
