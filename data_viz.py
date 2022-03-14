@@ -48,37 +48,65 @@ def get_frames_and_bboxes(idx):
   post_img = videodata[post_frame]
   pre_img = videodata[pre_frame]
   pnr_img = videodata[pnr_frame]
-  pre_bbox = scod_sample['pre_frame']['bbox'][0]['bbox']
-  pnr_bbox = scod_sample['pnr_frame']['bbox'][0]['bbox']
-  post_bbox = scod_sample['post_frame']['bbox'][0]['bbox']
+  pre_bbox = scod_sample['pre_frame']['bbox']
+  pnr_bbox = scod_sample['pnr_frame']['bbox']
+  post_bbox = scod_sample['post_frame']['bbox']
   return (pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox)
+
+def plot_img(ax, img, bboxes=None, sample_idx=0, state='', title=''):
+  ax.imshow(img)
+  print(f"Sample {sample_idx} {state} frame has objects:")
+  for bbox in bboxes:
+    print(f"     {bbox['object_type']} with structured noun: {bbox['structured_noun']}")
+    bbox = bbox['bbox']
+    rect = patches.Rectangle((bbox['x'], bbox['y']), bbox['width'], bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
+    ax.add_patch(rect)
+  ax.axes.xaxis.set_visible(False)
+  ax.axes.yaxis.set_visible(False)
+  ax.set_title(title)
+  return
 #scod_idx = np.random.randint(0, scod_num_clips - 1)
 #hands_idx = np.random.randint(0, hands_num_clips - 1)
 
-scod_idx = 0
-hands_idx = 0
-(pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(0)
+sample_idx = 0
+(pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(sample_idx)
 fig, ax = plt.subplots(3, 3)
 fig.set_figheight(5)
 fig.set_figwidth(8)
+
+plot_img(ax[0,0], pre_img, bboxes=pre_bbox, sample_idx=sample_idx, state='pre', title='Pre Frame')
+
+"""
 ax[0,0].imshow(pre_img)
-rect = patches.Rectangle((pre_bbox['x'], pre_bbox['y']), pre_bbox['width'], pre_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
-ax[0,0].add_patch(rect)
+print(f"Sample {sample_idx} pre frame has objects:")
+for bbox in pre_bbox:
+  print(f"     {bbox['object_type']} with structured noun: {bbox['structured_noun']}")
+  rect = patches.Rectangle((bbox['x'], pre_bbox['y']), pre_bbox['width'], pre_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
+  ax[0,0].add_patch(rect)
 ax[0,0].axes.xaxis.set_visible(False)
 ax[0,0].axes.yaxis.set_visible(False)
 ax[0,0].set_title("Pre Frame")
+
 ax[0,1].imshow(pnr_img)
-rect = patches.Rectangle((pnr_bbox['x'], pnr_bbox['y']), pnr_bbox['width'], pnr_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
-ax[0,1].add_patch(rect)
+print(f"Sample {sample_idx} pnr frame has objects:")
+for bbox in pre_bbox:
+  print(f"     {bbox['object_type']} with structured noun: {bbox['structured_noun']}")
+  rect = patches.Rectangle((bbox['x'], pre_bbox['y']), pre_bbox['width'], pre_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
+  ax[0,0].add_patch(rect)
 ax[0,1].axes.xaxis.set_visible(False)
 ax[0,1].axes.yaxis.set_visible(False)
 ax[0,1].set_title("PNR Frame")
+
 ax[0,2].imshow(post_img)
-rect = patches.Rectangle((post_bbox['x'], post_bbox['y']), post_bbox['width'], post_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
-ax[0,2].add_patch(rect)
+print(f"Sample {sample_idx} post frame has objects:")
+for bbox in pre_bbox:
+  print(f"     {bbox['object_type']} with structured noun: {bbox['structured_noun']}")
+  rect = patches.Rectangle((bbox['x'], pre_bbox['y']), pre_bbox['width'], pre_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
+  ax[0,0].add_patch(rect)
 ax[0,2].axes.xaxis.set_visible(False)
 ax[0,2].axes.yaxis.set_visible(False)
 ax[0,2].set_title("Post Frame")
+
 
 (pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(790)
 ax[1,0].imshow(pre_img)
@@ -87,18 +115,21 @@ ax[1,0].add_patch(rect)
 ax[1,0].axes.xaxis.set_visible(False)
 ax[1,0].axes.yaxis.set_visible(False)
 ax[1,0].set_title("Pre Frame")
+
 ax[1,1].imshow(pnr_img)
 rect = patches.Rectangle((pnr_bbox['x'], pnr_bbox['y']), pnr_bbox['width'], pnr_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
 ax[1,1].add_patch(rect)
 ax[1,1].axes.xaxis.set_visible(False)
 ax[1,1].axes.yaxis.set_visible(False)
 ax[1,1].set_title("PNR Frame")
+
 ax[1,2].imshow(post_img)
 rect = patches.Rectangle((post_bbox['x'], post_bbox['y']), post_bbox['width'], post_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
 ax[1,2].add_patch(rect)
 ax[1,2].axes.xaxis.set_visible(False)
 ax[1,2].axes.yaxis.set_visible(False)
 ax[1,2].set_title("Post Frame")
+
 
 (pre_img, pre_bbox), (pnr_img, pnr_bbox), (post_img, post_bbox) = get_frames_and_bboxes(4499)
 ax[2,0].imshow(pre_img)
@@ -107,16 +138,19 @@ ax[2,0].add_patch(rect)
 ax[2,0].axes.xaxis.set_visible(False)
 ax[2,0].axes.yaxis.set_visible(False)
 ax[2,0].set_title("Pre Frame")
+
 ax[2,1].imshow(pnr_img)
 rect = patches.Rectangle((pnr_bbox['x'], pnr_bbox['y']), pnr_bbox['width'], pnr_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
 ax[2,1].add_patch(rect)
 ax[2,1].axes.xaxis.set_visible(False)
 ax[2,1].axes.yaxis.set_visible(False)
 ax[2,1].set_title("PNR Frame")
+
 ax[2,2].imshow(post_img)
 rect = patches.Rectangle((post_bbox['x'], post_bbox['y']), post_bbox['width'], post_bbox['height'], linewidth=1, facecolor='none', edgecolor='r')
 ax[2,2].add_patch(rect)
 ax[2,2].axes.xaxis.set_visible(False)
 ax[2,2].axes.yaxis.set_visible(False)
 ax[2,2].set_title("Post Frame")
+"""
 plt.savefig("pnr_loc")
