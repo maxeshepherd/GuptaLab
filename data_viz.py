@@ -26,12 +26,11 @@ print(f"PNR temporal localization has {len(hands_data['clips'])} clips")
 def get_frames(idx):
   scod_sample = scod_data['clips'][idx]
   clip_uid = scod_sample['clip_uid']
-  scod_frames = scod_sample['frames'][0]
-  post_frame = scod_frames['post_frame']['clip_frame']
-  pre_frame = scod_frames['pre_frame']['clip_frame']
-  pnr_frame = scod_frames['pnr_frame']['clip_frame']
-  VIDEO_PATH = os.path.join(PATH_TO_VIDEOS, clip_uid+".mp4")
-  videodata = skvideo.io.vread(VIDEO_PATH)
+  post_frame = scod_sample['post_frame']['clip_frame_number']
+  pre_frame = scod_sample['pre_frame']['clip_frame_number']
+  pnr_frame = scod_sample['pnr_frame']['clip_frame_number']
+  video_path = os.path.join(PATH_TO_VIDEOS, clip_uid+".mp4")
+  videodata = skvideo.io.vread(video_path)
   post_img = videodata[post_frame]
   pre_img = videodata[pre_frame]
   pnr_img = videodata[pnr_frame]
