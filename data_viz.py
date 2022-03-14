@@ -60,7 +60,9 @@ pre_15_img = videodata[pre_15]
 post_img = videodata[post_frame]
 pnr_img = videodata[pnr_frame]
 
-fig, (ax1, ax2, ax3, ax4, ax5) = plt.subplots(1, 5)
+fig, (ax1, ax2, ax3, ax4, ax5, _) = plt.subplots(2, 3)
+fig.set_figheight(5)
+fig.set_figwidth(8)
 ax1.imshow(pre_45_img)
 ax1.axes.xaxis.set_visible(False)
 ax1.axes.yaxis.set_visible(False)
