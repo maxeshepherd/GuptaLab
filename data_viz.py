@@ -66,6 +66,15 @@ def plot_img(ax, img, bboxes=None, sample_idx=0, state='', title=''):
   ax.set_title(title)
   return
 
+def save_video(sample_idx, title):
+  scod_sample = scod_data['clips'][sample_idx]
+  start = scod_sample['clip_parent_start_frame']
+  end = scod_sample['clip_parent_end_frame']
+  clip_uid = scod_sample['clip_uid']
+  video_path = os.path.join(PATH_TO_VIDEOS, clip_uid+".mp4")
+  videodata = skvideo.io.vread(video_path)
+  skvideo.io.vwrite(title, videodata[start:end])
+
 fig, ax = plt.subplots(3, 3)
 fig.set_figheight(5)
 fig.set_figwidth(8)
