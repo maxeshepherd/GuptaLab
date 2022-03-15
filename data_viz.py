@@ -73,7 +73,7 @@ def save_video(sample_idx, title):
   clip_uid = scod_sample['clip_uid']
   video_path = os.path.join(PATH_TO_VIDEOS, clip_uid+".mp4")
   videodata = skvideo.io.vread(video_path)
-  skvideo.io.vwrite(title, videodata[start:end])
+  skvideo.io.vwrite(title, videodata)
 
 fig, ax = plt.subplots(3, 3)
 fig.set_figheight(5)
